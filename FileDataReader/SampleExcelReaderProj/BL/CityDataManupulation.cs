@@ -17,6 +17,7 @@ namespace SampleExcelReaderProj.BL
 
             List<City> cities = ReadCityFromExcelFile(filePath);
 
+            ExportToExcel(cities);
         }
 
         private static List<City> ReadCityFromExcelFile(string filePath)
@@ -71,6 +72,60 @@ namespace SampleExcelReaderProj.BL
             }
 
             return textSearch;
+        }
+
+        public static void ExportToExcel(List<City> cities)
+        {
+            Excel.Application excel = new Excel.Application();
+
+            excel.Workbooks.Add();
+
+            Excel._Worksheet workSheet = excel.ActiveSheet;
+
+            workSheet.Cells[1, "A"] = "CityName";
+            workSheet.Cells[1, "B"] = "StateCode";
+            workSheet.Cells[1, "C"] = "CountryCode";
+            workSheet.Cells[1, "D"] = "Latitude";
+            workSheet.Cells[1, "E"] = "Longitude";
+            workSheet.Cells[1, "F"] = "IsEnabled";
+            workSheet.Cells[1, "G"] = "IataCityCode";
+            workSheet.Cells[1, "H"] = "FullTextColumn";
+
+            int row = 1;
+            foreach (City city in cities)
+            {
+                workSheet.Cells[row, "A"] = city.CityName;
+                workSheet.Cells[row, "B"] = city.StateCode;
+                workSheet.Cells[row, "C"] = city.CountryCode;
+                workSheet.Cells[row, "D"] = city.Latitude;
+                workSheet.Cells[row, "E"] = city.Longitude;
+                workSheet.Cells[row, "F"] = city.IsEnabled;
+                workSheet.Cells[row, "G"] = city.IataCityCode;
+                workSheet.Cells[row, "H"] = city.FullTextColumn;
+
+                row++;
+            }
+
+             workSheet.Range["A1"].AutoFormat(Excel.XlRangeAutoFormat.xlRangeAutoFormatClassic1);
+
+            string fileName = string.Format(@"{0}\ExcelCityData.xlsx", Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory));
+            workSheet.SaveAs(fileName);
+
+            excel.Quit();
+
+            if (excel != null)
+               Marshal.ReleaseComObject(excel);
+
+            if (workSheet != null)
+                Marshal.ReleaseComObject(workSheet);
+
+          
+            excel = null;
+            workSheet = null;
+
+            // Force garbage collector cleaning
+            GC.Collect();
+
         }
 
 
