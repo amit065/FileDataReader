@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SampleExcelReaderProj
+namespace SampleExcelReaderProj.Model
 {
     public class City
     {
@@ -14,16 +14,15 @@ namespace SampleExcelReaderProj
 
         public string  CountryCode { get; set; }
 
-        public float Latitude { get; set; }
+        public string Latitude { get; set; }
 
-        public float Longitude { get; set; }
+        public string Longitude { get; set; }
 
-        public bool IsEnabled { get; set; }
+        public string IsEnabled { get; set; }
 
         public string IataCityCode { get; set; }
 
         public string FullTextColumn { get; set; }
 
-        public string TimeZoneMAppingId { get; set; }
     }
 }
