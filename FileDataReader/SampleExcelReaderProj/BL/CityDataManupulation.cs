@@ -10,9 +10,9 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace SampleExcelReaderProj.BL
 {
-    public static class CityDataManupulation
+    public  class CityDataManupulation
     {
-        public static void ManipulateCityFromExcel(string filePath)
+        public void ManipulateCityFromExcel(string filePath)
         {
 
             List<City> cities = ReadCityFromExcelFile(filePath);
@@ -22,7 +22,7 @@ namespace SampleExcelReaderProj.BL
             GenerateInsertScript(cities);
         }
 
-        private static List<City> ReadCityFromExcelFile(string filePath)
+        private  List<City> ReadCityFromExcelFile(string filePath)
         {
             Excel.Application xlApp = new Excel.Application();
             Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(filePath);
@@ -51,7 +51,7 @@ namespace SampleExcelReaderProj.BL
             return cities;
         }
 
-        private static string GetFullTextSearch(string cityName, string IataCityCode)
+        private  string GetFullTextSearch(string cityName, string IataCityCode)
         {
             string textSearch = IataCityCode != null ? IataCityCode : string.Empty;
 
@@ -76,7 +76,7 @@ namespace SampleExcelReaderProj.BL
             return textSearch;
         }
 
-        public static void ExportToExcel(List<City> cities)
+        public  void ExportToExcel(List<City> cities)
         {
             Excel.Application excel = new Excel.Application();
 
@@ -130,7 +130,7 @@ namespace SampleExcelReaderProj.BL
 
         }
 
-        public static void GenerateInsertScript(List<City> cities)
+        public  void GenerateInsertScript(List<City> cities)
         {
             using (StreamWriter writer = new StreamWriter(@"C:\Users\aprakash\Desktop\CityScript.txt", false))
             {

@@ -12,7 +12,8 @@ namespace SampleExcelReaderProj.Host
         static void Main(string[] args)
         {
             string fileName = @"C:\Users\aprakash\Desktop\CLTS_Cities_Data.xlsx";
-            CityDataManupulation.ManipulateCityFromExcel(fileName);
+            CityDataManupulation cityDataManupulation = new CityDataManupulation();
+            cityDataManupulation.ManipulateCityFromExcel(fileName);
         }
     }
 }
