@@ -18,6 +18,8 @@ namespace SampleExcelReaderProj.BL
             List<City> cities = ReadCityFromExcelFile(filePath);
 
             ExportToExcel(cities);
+
+            GenerateInsertScript(cities);
         }
 
         private static List<City> ReadCityFromExcelFile(string filePath)
@@ -106,7 +108,7 @@ namespace SampleExcelReaderProj.BL
                 row++;
             }
 
-             workSheet.Range["A1"].AutoFormat(Excel.XlRangeAutoFormat.xlRangeAutoFormatClassic1);
+            workSheet.Range["A1"].AutoFormat(Excel.XlRangeAutoFormat.xlRangeAutoFormatClassic1);
 
             string fileName = string.Format(@"{0}\ExcelCityData.xlsx", Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory));
             workSheet.SaveAs(fileName);
@@ -114,12 +116,12 @@ namespace SampleExcelReaderProj.BL
             excel.Quit();
 
             if (excel != null)
-               Marshal.ReleaseComObject(excel);
+                Marshal.ReleaseComObject(excel);
 
             if (workSheet != null)
                 Marshal.ReleaseComObject(workSheet);
 
-          
+
             excel = null;
             workSheet = null;
 
@@ -128,6 +130,17 @@ namespace SampleExcelReaderProj.BL
 
         }
 
+        public static void GenerateInsertScript(List<City> cities)
+        {
+            using (StreamWriter writer = new StreamWriter(@"C:\Users\aprakash\Desktop\CityScript.txt", true))
+
+                foreach (City city in cities)
+                {
+                    writer.WriteLine("Insert into Cities (CityName, StateCode, CountryCode, Latitude, Longitude, IsEnabled, IataCityCode, FullTextColumn) values" + ( city.CityName  +"  "+ city.StateCode +"  "+"  "+city.CountryCode+"  "+city.Latitude+"  "+city.Longitude+"  "+city.IsEnabled+"  "+city.IataCityCode+"  "+city.FullTextColumn));
+                }
+
+          
+        }
 
     }
 }
