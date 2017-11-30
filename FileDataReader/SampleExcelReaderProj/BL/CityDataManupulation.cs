@@ -132,13 +132,16 @@ namespace SampleExcelReaderProj.BL
 
         public static void GenerateInsertScript(List<City> cities)
         {
-            using (StreamWriter writer = new StreamWriter(@"C:\Users\aprakash\Desktop\CityScript.txt", true))
+            using (StreamWriter writer = new StreamWriter(@"C:\Users\aprakash\Desktop\CityScript.txt", false))
+            {
 
                 foreach (City city in cities)
                 {
-                    writer.WriteLine("Insert into Cities (CityName, StateCode, CountryCode, Latitude, Longitude, IsEnabled, IataCityCode, FullTextColumn) values('"+city.CityName+"' , '"+city.StateCode+"' , '"+city.CountryCode+"' , '"+city.Latitude+"' , '"+city.Longitude+"' , '"+city.IsEnabled+ "' , '" + (city.IataCityCode != null  ? city.IataCityCode : city.IataCityCode="'NUll'")+ "' , '"+city.FullTextColumn+ "');" );
+                    writer.WriteLine("Insert into Cities (CityName, StateCode, CountryCode, Latitude, Longitude, IsEnabled, IataCityCode, FullTextColumn) values('" + city.CityName + "' , '" + city.StateCode + "' , '" + city.CountryCode + "' , '" + city.Latitude + "' , '" + city.Longitude + "' , '" + city.IsEnabled + "' , '" + (city.IataCityCode != null ? city.IataCityCode : city.IataCityCode = "NULL") + "' , '" + city.FullTextColumn + "');");
+
                 }
 
+            }  
           
         }
 
